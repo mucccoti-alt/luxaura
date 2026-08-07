@@ -198,6 +198,19 @@
     </div>
   </footer>
 
-  <script src="script-local-images.js" defer></script>
+  <script>
+    // Cache-busted loader: append the latest script-local-images.js with a timestamp to avoid stale cached JS
+    (function(){
+      try{
+        const s = document.createElement('script');
+        s.src = 'script-local-images.js?t=' + Date.now();
+        s.defer = true;
+        s.onload = function(){ console.log('script-local-images loaded (cache-busted)'); };
+        s.onerror = function(e){ console.error('script-local-images failed to load', e); };
+        document.body.appendChild(s);
+        console.log('Appended cache-busted loader for script-local-images.js');
+      }catch(err){ console.error('Failed to append cache-busted loader', err); }
+    })();
+  </script>
 </body>
 </html>
