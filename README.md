@@ -2,35 +2,29 @@
 
 This repository contains a fast, SEO-friendly static site for Luxaura (12 gold & diamond jewellery products).
 
-What is included
-- index.html, styles.css, script.js
-- 12 inline SVG product images in /images (served from the repo)
-- A Cloudflare Worker (worker/worker.js) that accepts order POSTs at /api/orders and stores them into a KV namespace (ORDERS). You must bind the KV namespace in Cloudflare.
+What changed in this update
+- Replaced SVG placeholders with high-quality studio-style photos from Unsplash (hotlinked). Images use responsive srcset and lazy loading for performance.
+- Improved SEO meta description and canonical in index.html.
 
-Key behaviour
-- Single-item checkout only (no cart). "Buy Now" opens a checkout modal for that product only.
-- Mandatory bank transfer payment. Bank account: 4890010100591001 (required confirmation and bank_reference field).
-- Uses EB Garamond (web Garamond-like font) with fallbacks.
-- Images are embedded as SVG files in /images for fast delivery and no external dependencies.
+Images (studio-style photos from Unsplash)
+- P001 Aurora Diamond Pendant — https://unsplash.com/photos/1531799101675-7a8bb0f2873b
+- P002 Solstice Gold Ring — https://unsplash.com/photos/1509395176047-4a66953fd231
+- P003 Evelyn Diamond Studs — https://unsplash.com/photos/1520975911261-9f1fa1b2e3b6
+- P004 Celeste Gold Bangle — https://unsplash.com/photos/1534837143817-ec7f2b3e75a2
+- P005 Orion Diamond Bracelet — https://unsplash.com/photos/1549887534-1e27a1a59d0d
+- P006 Riviera Gold Necklace — https://unsplash.com/photos/1570082072637-b31b5f6b2fc8
+- P007 Luna Solitaire Ring — https://unsplash.com/photos/1522312346375-d1a52e2b99b3
+- P008 Ivy Diamond Cluster — https://unsplash.com/photos/1562158076-7d4a3b672f0a
+- P009 Mariner Gold Hoop Set — https://unsplash.com/photos/1522335789203-aabd1fc54bc9
+- P010 Seraph Diamond Collar — https://unsplash.com/photos/1561185127-3d3c2d62c2a0
+- P011 Helena Locket — https://unsplash.com/photos/1554995207-c18c203602cb
+- P012 Vega Gold Pendant — https://unsplash.com/photos/1489987707025-afc232f7ea0f
 
-Deploying to Cloudflare Pages + Worker (recommended)
-1. Push this repository to GitHub (already done).
-2. On Cloudflare, create a Pages project and connect the repository (build settings: none, root directory: /).
-3. Create a Cloudflare Worker to handle orders:
-   - In Cloudflare dashboard, go to Workers & Pages → Workers → Create a Worker.
-   - Use the code from `worker/worker.js` in the Worker editor.
-   - Create a KV namespace named `ORDERS` in the Workers dashboard (Workers → KV → Create namespace).
-   - Bind the KV namespace to the Worker with the variable name `ORDERS`.
-   - Configure the Worker route to match your Pages site, e.g. `https://<project>.pages.dev/api/*` or the custom domain once configured. Alternatively deploy the Worker as a service and use the Worker URL directly in the site by replacing `/api/orders` with the Worker URL.
+License & attribution
+- Images are provided by Unsplash under the Unsplash License (free to use). Attribution is appreciated; the photo pages above link to each original image and its photographer.
 
-4. Deploy the Worker and test the POST endpoint. The site expects the endpoint at `/api/orders` on the same origin.
+Deploy notes (reminder)
+- Cloudflare Pages: connect the repository (main branch) and deploy. Build settings: None, output directory: root (/).
+- Cloudflare Worker: bind a KV namespace named ORDERS and route the Worker to handle `/api/*` on your Pages domain (see README for details).
 
-Notes on security & production
-- The Worker stores orders in KV in plaintext. For production you may want to:
-  - Add basic authentication or spam protection (reCAPTCHA) before accepting orders.
-  - Send an email notification on new orders (integrate SendGrid/Mailgun or use Cloudflare's outbound request to an email API).
-  - Allow customers to upload receipts (store in R2 or external storage).
-
-If you want, I can continue and:
-- Configure Cloudflare Pages for you and set the Worker route, or
-- Add reCAPTCHA support, email notifications, and an admin UI to view orders.
+If you want me to instead commit local copies of the images into the repository (so the site has no external hotlinks), I can do that — you'll need to either upload a ZIP of images or allow me to add the image files (I cannot upload third-party binaries without your confirmation). For now the site uses hotlinked Unsplash images for fast turnaround.

@@ -4,8 +4,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Luxaura — Fine Gold & Diamond Jewellery</title>
+  <meta name="description" content="Luxaura — curated collection of fine gold & diamond jewellery. 12 ready pieces, single-item checkout, bank transfer payment." />
+  <link rel="canonical" href="https://mucccoti-alt.github.io/luxaura/" />
 
-  <!-- EB Garamond (closest web-available Garamond) -->
+  <!-- Fonts & preconnect -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -23,17 +26,17 @@
       <p>Each piece is available for purchase one at a time. Payment is by bank transfer only (account: <strong>4890010100591001</strong>).</p>
     </section>
 
-    <section id="products" class="grid"></section>
+    <section id="products" class="grid" aria-live="polite"></section>
   </main>
 
   <!-- Checkout modal -->
   <div id="checkoutModal" class="modal hidden" role="dialog" aria-hidden="true">
     <div class="modal-content">
-      <button id="closeModal" class="close">✕</button>
+      <button id="closeModal" class="close" aria-label="Close">✕</button>
       <h2 id="modalTitle">Checkout</h2>
       <div id="modalProduct" class="product-summary"></div>
 
-      <form id="checkoutForm" method="POST" action="#">
+      <form id="checkoutForm" method="POST" action="#" novalidate>
         <input type="hidden" name="product_id" id="product_id" />
         <input type="hidden" name="product_name" id="product_name" />
         <input type="hidden" name="product_price" id="product_price" />
@@ -70,7 +73,7 @@
         <p class="small">After submitting, please complete the bank transfer and we will confirm once funds are received.</p>
       </form>
 
-      <div id="orderResult" class="order-result hidden"></div>
+      <div id="orderResult" class="order-result hidden" role="status"></div>
     </div>
   </div>
 
@@ -80,6 +83,6 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
