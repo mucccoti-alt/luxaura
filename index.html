@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Luxaura — Fine Gold & Diamond Jewellery</title>
+
+  <!-- EB Garamond (closest web-available Garamond) -->
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1 class="brand">Luxaura</h1>
+      <p class="tag">Fine gold & diamond jewellery</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="intro">
+      <h2>Exclusive Collection — 12 Ready Pieces</h2>
+      <p>Each piece is available for purchase one at a time. Payment is by bank transfer only (account: <strong>4890010100591001</strong>).</p>
+    </section>
+
+    <section id="products" class="grid"></section>
+  </main>
+
+  <!-- Checkout modal -->
+  <div id="checkoutModal" class="modal hidden" role="dialog" aria-hidden="true">
+    <div class="modal-content">
+      <button id="closeModal" class="close">✕</button>
+      <h2 id="modalTitle">Checkout</h2>
+      <div id="modalProduct" class="product-summary"></div>
+
+      <form id="checkoutForm" method="POST" action="#">
+        <input type="hidden" name="product_id" id="product_id" />
+        <input type="hidden" name="product_name" id="product_name" />
+        <input type="hidden" name="product_price" id="product_price" />
+
+        <label>
+          Full name
+          <input type="text" name="customer_name" id="customer_name" required />
+        </label>
+
+        <label>
+          Email
+          <input type="email" name="customer_email" id="customer_email" required />
+        </label>
+
+        <label>
+          Bank transfer reference (enter the transaction reference after you make the transfer)
+          <input type="text" name="bank_reference" id="bank_reference" required />
+        </label>
+
+        <div class="bank-info">
+          <p>Please transfer the exact amount to the account below. Payment by any other method is not accepted.</p>
+          <p class="account"><strong>Account:</strong> 4890010100591001</p>
+          <p class="account-note">Make sure you enter this account number when making the transfer.</p>
+        </div>
+
+        <label class="confirm">
+          <input type="checkbox" id="confirmTransfer" required />
+          I confirm I will transfer the indicated amount to account 4890010100591001 and will provide the transfer reference above.
+        </label>
+
+        <div class="actions">
+          <button type="submit" id="submitOrder">Submit order</button>
+        </div>
+        <p class="small">After submitting, please complete the bank transfer and we will confirm once funds are received.</p>
+      </form>
+
+      <div id="orderResult" class="order-result hidden"></div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="year"></span> Luxaura — Payment via bank transfer only: 4890010100591001</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
