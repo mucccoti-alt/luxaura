@@ -1,0 +1,67 @@
+/* styles.css */
+:root{
+  --accent:#b8860b;
+  --text:#222;
+  --muted:#666;
+  --bg:#fffaf6;
+  --max-width:1100px;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:"EB Garamond", Garamond, "Times New Roman", serif;
+  color:var(--text);
+  background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+.container{max-width:var(--max-width);margin:0 auto;padding:1rem}
+.site-header{background:#fff;padding:.75rem 0;border-bottom:1px solid #eee}
+.brand{margin:0;font-size:1.8rem;color:var(--accent)}
+.tag{margin:0;color:var(--muted)}
+.intro{padding:1rem 0}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:1rem;
+  margin-bottom:2rem;
+}
+.card{
+  background:#fff;padding:1rem;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.06);
+  display:flex;flex-direction:column;
+}
+.product-image{width:100%;height:180px;border-radius:6px;margin-bottom:.75rem;display:flex;align-items:center;justify-content:center;background:#fff;padding:8px}
+.product-image svg{width:100%;height:100%;max-height:164px}
+.product-info{flex:1}
+.product-title{margin:.2rem 0;font-weight:700}
+.product-price{color:var(--accent);font-weight:700;margin-bottom:.6rem}
+.card .btns{display:flex;gap:.5rem}
+.btn{
+  padding:.5rem .75rem;border-radius:6px;border:1px solid var(--accent);background:transparent;color:var(--accent);
+  cursor:pointer;font-weight:600;text-decoration:none;text-align:center;
+}
+.btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.small{font-size:.9rem;color:var(--muted)}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,0.45);display:flex;align-items:center;justify-content:center;padding:1rem;z-index:999}
+.hidden{display:none}
+.modal-content{background:#fff;padding:1.2rem 1.4rem;border-radius:8px;max-width:640px;width:100%;position:relative}
+.close{position:absolute;right:10px;top:10px;border:0;background:transparent;font-size:1.1rem;cursor:pointer}
+.product-summary{display:flex;gap:1rem;margin:.5rem 0}
+.product-summary img{width:110px;height:80px;object-fit:cover;border-radius:6px}
+label{display:block;margin:.5rem 0;font-size:0.95rem}
+input[type="text"],input[type="email"],textarea,select{
+  width:100%;padding:.5rem;border:1px solid #ddd;border-radius:6px;font-family:inherit;margin-top:.25rem;
+}
+.confirm{display:flex;align-items:center;gap:.5rem;margin-top:.5rem}
+.actions{margin-top:1rem}
+.actions button{padding:.6rem .9rem;border-radius:6px;border:0;background:var(--accent);color:#fff;cursor:pointer;font-weight:700}
+.bank-info{background:#fff8e6;border:1px solid #f1e0b3;padding:.6rem;border-radius:6px;margin-top:.5rem}
+.account{font-weight:700;color:var(--text)}
+.account-note{color:var(--muted);font-size:.9rem;margin-top:.25rem}
+.site-footer{padding:1rem 0;border-top:1px solid #eee;margin-top:2rem;text-align:center;color:var(--muted)}
+.order-result{margin-top:1rem;padding:.75rem;border-radius:6px;background:#f4fff4;border:1px solid #d7f2d7;color:#0b6f0b}
+.error{background:#fff4f4;border:1px solid #f2d7d7;color:#6f0b0b}
+@media (max-width:520px){
+  .product-summary{flex-direction:column}
+}
