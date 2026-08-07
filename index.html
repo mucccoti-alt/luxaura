@@ -12,6 +12,13 @@
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 
+  <style>
+    /* Small header logo styling */
+    .brand-header{ display:flex; align-items:center; gap:12px }
+    .brand-logo{ height:56px; width:auto; display:block }
+    .brand{ font-size:1.5rem; margin:0 }
+  </style>
+
   <!-- JSON-LD product schema for SEO -->
   <script type="application/ld+json">
   {
@@ -119,9 +126,12 @@
 </head>
 <body>
   <header class="site-header">
-    <div class="container">
-      <h1 class="brand">Luxorita</h1>
-      <p class="tag">Fine gold & diamond jewellery</p>
+    <div class="container brand-header">
+      <img class="brand-logo" src="images/brand.jpg" alt="Luxorita" width="56" height="56" />
+      <div>
+        <h1 class="brand">Luxorita</h1>
+        <p class="tag">Fine gold & diamond jewellery</p>
+      </div>
     </div>
   </header>
 
@@ -167,4 +177,27 @@
           <p class="account-note">Make sure you enter this account number when making the transfer.</p>
         </div>
 
-{
+        <label class="confirm">
+          <input type="checkbox" id="confirmTransfer" required />
+          I confirm I will transfer the indicated amount to account 4890010100591001 and will provide the transfer reference above.
+        </label>
+
+        <div class="actions">
+          <button type="submit" id="submitOrder">Submit order</button>
+        </div>
+        <p class="small">After submitting, please complete the bank transfer and we will confirm once funds are received.</p>
+      </form>
+
+      <div id="orderResult" class="order-result hidden" role="status"></div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="year"></span> Luxorita</p>
+    </div>
+  </footer>
+
+  <script src="script-local-images.js" defer></script>
+</body>
+</html>
