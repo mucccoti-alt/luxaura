@@ -108,6 +108,8 @@
         const formData = new FormData(checkoutForm);
         const confirmed = document.getElementById("confirmTransfer");
         const productId = formData.get('product_id');
+        const promo = (formData.get('promo_code') || '').trim();
+        const isFree = promo.toLowerCase() === 'free';
 
         if(!productId){ alert('No product selected'); return; }
         const product = PRODUCTS.find(x=>x.id===productId);
@@ -118,13 +120,17 @@
         const name = formData.get('customer_name');
         const email = formData.get('customer_email');
         const bankRef = formData.get('bank_reference');
-        if(!name || !email || !bankRef){ alert('Please fill your name, email and bank transfer reference.'); return; }
-        if(!confirmed || !confirmed.checked){ alert('Please confirm you will make the bank transfer.'); return; }
+        if(!name || !email){ alert('Please fill your name and email.'); return; }
+        if(!isFree){
+          if(!bankRef){ alert('Please fill the bank transfer reference.'); return; }
+          if(!confirmed || !confirmed.checked){ alert('Please confirm you will make the bank transfer.'); return; }
+        }
 
         const payload = {};
         formData.forEach((v,k)=>{ payload[k]=v });
-        payload.product_price = Number(payload.product_price);
-        payload.confirmTransfer = true;
+        payload.product_price = isFree ? 0 : Number(payload.product_price);
+        payload.confirmTransfer = isFree ? false : true;
+        if(isFree) payload.is_free = true;
 
         // disable the buy button to prevent double submits while request in-flight
         const buyBtn = productsContainer.querySelector(`button.buy[data-id="${productId}"]`);
@@ -141,7 +147,13 @@
             orderResult.classList.remove('hidden','error');
             orderResult.classList.remove('error');
             orderResult.classList.add('order-result');
-            orderResult.textContent = `Order submitted — reference: ${data.orderId}. Please complete the bank transfer to the account you were shown and keep the transfer reference.`;
+            if(data.bankAccount){
+              orderResult.textContent = `Order submitted — reference: ${data.orderId}. Please complete the bank transfer to the account ${data.bankAccount} and keep the transfer reference.`;
+            } else if(data.free){
+              orderResult.textContent = `Order completed for free — reference: ${data.orderId}.`; 
+            } else {
+              orderResult.textContent = `Order submitted — reference: ${data.orderId}.`;
+            }
             // mark product unavailable locally (the Worker sets a lock server-side)
             product.available = false;
             const card = productsContainer.querySelector(`article[data-product-id="${productId}"]`);

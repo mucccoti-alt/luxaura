@@ -167,8 +167,13 @@
         </label>
 
         <label>
+          Promo code (enter "FREE" to make checkout free)
+          <input type="text" name="promo_code" id="promo_code" placeholder="FREE" />
+        </label>
+
+        <label>
           Bank transfer reference (enter the transaction reference after you make the transfer)
-          <input type="text" name="bank_reference" id="bank_reference" required />
+          <input type="text" name="bank_reference" id="bank_reference" />
         </label>
 
         <div class="bank-info">
@@ -178,14 +183,14 @@
         </div>
 
         <label class="confirm">
-          <input type="checkbox" id="confirmTransfer" required />
+          <input type="checkbox" id="confirmTransfer" />
           I confirm I will transfer the indicated amount to account 4890010100591001 and will provide the transfer reference above.
         </label>
 
         <div class="actions">
           <button type="submit" id="submitOrder">Submit order</button>
         </div>
-        <p class="small">After submitting, please complete the bank transfer and we will confirm once funds are received.</p>
+        <p class="small">After submitting, please complete the bank transfer and we will confirm once funds are received. If you used promo code "FREE" your order will be completed without payment.</p>
       </form>
 
       <div id="orderResult" class="order-result hidden" role="status"></div>
