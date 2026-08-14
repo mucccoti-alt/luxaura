@@ -4,18 +4,18 @@
     try{
       // Product data
       const PRODUCTS = [
-        { id: "P001", name: "Aurora Diamond Pendant", price: 2750, img: "images/p001.jpg", desc: "18K gold pendant with brilliant-cut diamond accent.", available: true },
-        { id: "P002", name: "Solstice Gold Ring", price: 2890, img: "images/p002.jpg", desc: "Classic 22K gold ring with polished finish.", available: true },
-        { id: "P003", name: "Evelyn Diamond Studs", price: 3200, img: "images/p003.jpg", desc: "Pair of diamond studs set in 14K gold.", available: true },
-        { id: "P004", name: "Celeste Gold Bangle", price: 2705, img: "images/p004.jpg", desc: "Delicate gold bangle with a satin sheen.", available: true },
-        { id: "P005", name: "Orion Diamond Bracelet", price: 3420, img: "images/p005.jpg", desc: "Tennis-style bracelet featuring round diamonds.", available: true },
-        { id: "P006", name: "Riviera Gold Necklace", price: 3050, img: "images/p006.jpg", desc: "Fine gold chain with textured links.", available: true },
-        { id: "P007", name: "Luna Solitaire Ring", price: 3780, img: "images/p007.jpg", desc: "Solitaire diamond in a timeless 18K gold setting.", available: true },
-        { id: "P008", name: "Ivy Diamond Cluster", price: 2899, img: "images/p008.jpg", desc: "Cluster diamonds arranged in a floral motif.", available: true },
-        { id: "P009", name: "Mariner Gold Hoop Set", price: 2765, img: "images/p009.jpg", desc: "Set of two gold hoops with secure latch.", available: true },
-        { id: "P010", name: "Seraph Diamond Collar", price: 3350, img: "images/p010.jpg", desc: "Bold collar necklace with diamond accent stones.", available: true },
-        { id: "P011", name: "Helena Locket", price: 2975, img: "images/p011.jpg", desc: "Engravable locket in polished gold.", available: true },
-        { id: "P012", name: "Vega Gold Pendant", price: 2825, img: "images/p012.jpg", desc: "Modern pendant with brushed gold surface.", available: true }
+        { id: "P001", name: "Aurora Diamond Pendant", price: 2750, img: "https://drive.google.com/uc?export=download&id=1IkZn0X70Kz35OXf1DT1B7px-OjFUfDvb", desc: "18K gold pendant with brilliant-cut diamond accent.", available: true },
+        { id: "P002", name: "Solstice Gold Ring", price: 2890, img: "https://drive.google.com/uc?export=download&id=1F1HrmdQmvuHser1XLnpCoIr_g4614MZn", desc: "Classic 22K gold ring with polished finish.", available: true },
+        { id: "P003", name: "Evelyn Diamond Studs", price: 3200, img: "https://drive.google.com/uc?export=download&id=1KZY0USmQsSdhIdd1pNLHUze1xlFvom9-", desc: "Pair of diamond studs set in 14K gold.", available: true },
+        { id: "P004", name: "Celeste Gold Bangle", price: 2705, img: "https://drive.google.com/uc?export=download&id=1Yvr1pQxGcIJpWbxUTQf6fiP3M-S2p7X6", desc: "Delicate gold bangle with a satin sheen.", available: true },
+        { id: "P005", name: "Orion Diamond Bracelet", price: 3420, img: "https://drive.google.com/uc?export=download&id=17Wb8-ay4xFi3wWEIQrRK2SdZnwt_ZrcY", desc: "Tennis-style bracelet featuring round diamonds.", available: true },
+        { id: "P006", name: "Riviera Gold Necklace", price: 3050, img: "https://drive.google.com/uc?export=download&id=1y2AzyIHpdShwMv1UcDTzvzHk0hlHLPxa", desc: "Fine gold chain with textured links.", available: true },
+        { id: "P007", name: "Luna Solitaire Ring", price: 3780, img: "https://drive.google.com/uc?export=download&id=1iw7WBp7UiGHGs6lDmpcFxWA98NyN3wSJ", desc: "Solitaire diamond in a timeless 18K gold setting.", available: true },
+        { id: "P008", name: "Ivy Diamond Cluster", price: 2899, img: "https://drive.google.com/uc?export=download&id=1OD1vogO7r_k6fSermzY3CnrcK66k3abA", desc: "Cluster diamonds arranged in a floral motif.", available: true },
+        { id: "P009", name: "Mariner Gold Hoop Set", price: 2765, img: "https://drive.google.com/uc?export=download&id=1ct-7FQjeLZXpB3gHFhCq0U_lTIi0OKE9", desc: "Set of two gold hoops with secure latch.", available: true },
+        { id: "P010", name: "Seraph Diamond Collar", price: 3350, img: "https://drive.google.com/uc?export=download&id=1pTwwKmFFiZrXNkrmI_wxVkDSLFGL2Zku", desc: "Bold collar necklace with diamond accent stones.", available: true },
+        { id: "P011", name: "Helena Locket", price: 2975, img: "https://drive.google.com/uc?export=download&id=1TkQCeo0MjCePmESUmwUoh9lCf-Ul2y36", desc: "Engravable locket in polished gold.", available: true },
+        { id: "P012", name: "Vega Gold Pendant", price: 2825, img: "https://drive.google.com/uc?export=download&id=1NB5-GujB2UNsnmkrUn6iV-M4BmK8D3eG", desc: "Modern pendant with brushed gold surface.", available: true }
       ];
 
       // DOM elements
@@ -35,10 +35,8 @@
       function formatPrice(n){ return `$${n.toLocaleString()}` }
 
       function srcsetFor(basePath){
-        const base = basePath.replace(/\.jpg$/i, '');
-        const s1 = `${base}.jpg 800w`;
-        const s2 = `${base}@2x.jpg 1600w`;
-        return `${s1}, ${s2}`;
+        // When using external URLs we don't have optimized variants yet — return a simple srcset that points to the same URL.
+        return `${basePath} 800w, ${basePath} 1600w`;
       }
 
       function renderProducts(){
@@ -50,7 +48,7 @@
 
           const availability = p.available ? '' : '<div class="sold">Sold / Processing</div>';
 
-          card.innerHTML = `\n      <div class="product-image">\n        <picture>\n          <source type="image/webp" srcset="${p.img.replace(/\\.jpg$/, '.webp')} , ${p.img.replace(/\\.jpg$/, '@2x.webp')} 1600w">\n          <img src="${p.img}" srcset="${srcsetFor(p.img)}" sizes="(max-width:600px) 100vw, 300px" alt="${p.name}" loading="lazy" width="800" height="600" />\n        </picture>\n      </div>\n      <div class="product-info">\n        <div class="product-title">${p.name}</div>\n        <div class="product-price">${formatPrice(p.price)}</div>\n        <div class="small">${p.desc}</div>\n        <div class="small">Product code: ${p.id}</div>\n        ${availability}\n      </div>\n      <div class="btns" style="margin-top:.75rem">\n        <button class="btn view" data-action="view" data-id="${p.id}">View</button>\n        <button class="btn primary buy" data-action="buy" data-id="${p.id}" ${p.available? '' : 'disabled'}>Buy Now</button>\n      </div>\n    `;
+          card.innerHTML = `\n      <div class="product-image">\n        <picture>\n          <img src="${p.img}" srcset="${srcsetFor(p.img)}" sizes="(max-width:600px) 100vw, 300px" alt="${p.name}" loading="lazy" width="800" height="600" />\n        </picture>\n      </div>\n      <div class="product-info">\n        <div class="product-title">${p.name}</div>\n        <div class="product-price">${formatPrice(p.price)}</div>\n        <div class="small">${p.desc}</div>\n        <div class="small">Product code: ${p.id}</div>\n        ${availability}\n      </div>\n      <div class="btns" style="margin-top:.75rem">\n        <button class="btn view" data-action="view" data-id="${p.id}">View</button>\n        <button class="btn primary buy" data-action="buy" data-id="${p.id}" ${p.available? '' : 'disabled'}>Buy Now</button>\n      </div>\n    `;
           productsContainer.appendChild(card);
         });
       }
@@ -69,7 +67,7 @@
         const p = PRODUCTS.find(x=>x.id===id);
         if(!p) return;
         modalTitle.textContent = p.name;
-        modalProduct.innerHTML = `\n    <picture>\n      <source type="image/webp" srcset="${p.img.replace(/\\.jpg$/, '.webp')} , ${p.img.replace(/\\.jpg$/, '@2x.webp')} 1600w">\n      <img src="${p.img}" srcset="${srcsetFor(p.img)}" sizes="(max-width:600px) 100vw, 200px" alt="${p.name}" style="width:220px;height:180px;object-fit:contain;border-radius:6px" loading="lazy" />\n    </picture>\n    <div>\n      <div style="font-weight:700">${p.name}</div>\n      <div style="color:#b8860b;font-weight:700;margin-top:.25rem">${formatPrice(p.price)}</div>\n      <div class="small" style="margin-top:.5rem">${p.desc}</div>\n      <div class="small">Product code: ${p.id}</div>\n    </div>\n  `;
+        modalProduct.innerHTML = `\n    <picture>\n      <img src="${p.img}" srcset="${srcsetFor(p.img)}" sizes="(max-width:600px) 100vw, 200px" alt="${p.name}" style="width:220px;height:180px;object-fit:contain;border-radius:6px" loading="lazy" />\n    </picture>\n    <div>\n      <div style="font-weight:700">${p.name}</div>\n      <div style="color:#b8860b;font-weight:700;margin-top:.25rem">${formatPrice(p.price)}</div>\n      <div class="small" style="margin-top:.5rem">${p.desc}</div>\n      <div class="small">Product code: ${p.id}</div>\n    </div>\n  `;
         openModal();
       }
 
@@ -81,7 +79,7 @@
           return;
         }
         modalTitle.textContent = `Buy: ${p.name}`;
-        modalProduct.innerHTML = `\n    <picture>\n      <source type="image/webp" srcset="${p.img.replace(/\\.jpg$/, '.webp')} , ${p.img.replace(/\\.jpg$/, '@2x.webp')} 1600w">\n      <img src="${p.img}" srcset="${srcsetFor(p.img)}" sizes="200px" alt="${p.name}" style="width:120px;height:100px;object-fit:contain;border-radius:6px" loading="lazy" />\n    </picture>\n    <div>\n      <div style="font-weight:700">${p.name}</div>\n      <div style="color:#b8860b;font-weight:700;margin-top:.25rem">${formatPrice(p.price)}</div>\n      <div class="small" style="margin-top:.5rem">${p.desc}</div>\n      <div class="small">Product code: ${p.id}</div>\n    </div>\n  `;
+        modalProduct.innerHTML = `\n    <picture>\n      <img src="${p.img}" srcset="${srcsetFor(p.img)}" sizes="200px" alt="${p.name}" style="width:120px;height:100px;object-fit:contain;border-radius:6px" loading="lazy" />\n    </picture>\n    <div>\n      <div style="font-weight:700">${p.name}</div>\n      <div style="color:#b8860b;font-weight:700;margin-top:.25rem">${formatPrice(p.price)}</div>\n      <div class="small" style="margin-top:.5rem">${p.desc}</div>\n      <div class="small">Product code: ${p.id}</div>\n    </div>\n  `;
         document.getElementById("product_id").value = p.id;
         document.getElementById("product_name").value = p.name;
         document.getElementById("product_price").value = p.price;
