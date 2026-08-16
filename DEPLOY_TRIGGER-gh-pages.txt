@@ -1,0 +1,3 @@
+Force rebuild: update from main at 2026-08-16T15:45:00Z
+
+This file was created to trigger a Pages rebuild on the gh-pages branch so the site publishes the latest main content (images and index.html).
