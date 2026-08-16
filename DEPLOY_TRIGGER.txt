@@ -1,0 +1,5 @@
+Triggering a Pages rebuild to redeploy site with uploaded images.
+
+Timestamp: 2026-08-16T15:30:00Z
+
+This file was created by Copilot to force a GitHub Pages build after merging image and index.html updates.
