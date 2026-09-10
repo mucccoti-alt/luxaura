@@ -1,5 +1,5 @@
-Triggering a Pages rebuild to redeploy site with uploaded images.
-
-Timestamp: 2026-08-16T15:30:00Z
-
-This file was created by Copilot to force a GitHub Pages build after merging image and index.html updates.
+DEPLOYMENT TRIGGER - Updated product images to Cloudinary URLs
+Generated: 2026-09-10
+Product images p001-p012 now point to Cloudinary collection
+Changes: script-local-images.js updated with Cloudinary image URLs
+Deploy to: https://luxaura.pages.dev/
