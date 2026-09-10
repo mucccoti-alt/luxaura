@@ -1,5 +1,6 @@
-DEPLOYMENT TRIGGER - Updated product images to Cloudinary URLs
+DEPLOYMENT TRIGGER - Production Release
 Generated: 2026-09-10
-Product images p001-p012 now point to Cloudinary collection
-Changes: script-local-images.js updated with Cloudinary image URLs
+Status: Removed FREE coupon checkout
+Product images: Cloudinary URLs p001-p012
+Checkout: Bank transfer ONLY (no free coupon)
 Deploy to: https://luxaura.pages.dev/
