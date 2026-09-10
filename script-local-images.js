@@ -1,21 +1,21 @@
-// script-local-images.js — wrapped initialization to avoid running before DOM is ready and to surface startup errors
+// script-local-images.js — using Cloudinary product images (p001-p012)
 (function(){
   async function init(){
     try{
-      // Product data
+      // Product data with Cloudinary URLs
       const PRODUCTS = [
-        { id: "P001", name: "Aurora Diamond Pendant", price: 2750, img: "images/p001.jpg", desc: "18K gold pendant with brilliant-cut diamond accent.", available: true },
-        { id: "P002", name: "Solstice Gold Ring", price: 2890, img: "images/p002.jpg", desc: "Classic 22K gold ring with polished finish.", available: true },
-        { id: "P003", name: "Evelyn Diamond Studs", price: 3200, img: "images/p003.jpg", desc: "Pair of diamond studs set in 14K gold.", available: true },
-        { id: "P004", name: "Celeste Gold Bangle", price: 2705, img: "images/p004.jpg", desc: "Delicate gold bangle with a satin sheen.", available: true },
-        { id: "P005", name: "Orion Diamond Bracelet", price: 3420, img: "images/p005.jpg", desc: "Tennis-style bracelet featuring round diamonds.", available: true },
-        { id: "P006", name: "Riviera Gold Necklace", price: 3050, img: "images/p006.jpg", desc: "Fine gold chain with textured links.", available: true },
-        { id: "P007", name: "Luna Solitaire Ring", price: 3780, img: "images/p007.jpg", desc: "Solitaire diamond in a timeless 18K gold setting.", available: true },
-        { id: "P008", name: "Ivy Diamond Cluster", price: 2899, img: "images/p008.jpg", desc: "Cluster diamonds arranged in a floral motif.", available: true },
-        { id: "P009", name: "Mariner Gold Hoop Set", price: 2765, img: "images/p009.jpg", desc: "Set of two gold hoops with secure latch.", available: true },
-        { id: "P010", name: "Seraph Diamond Collar", price: 3350, img: "images/p010.jpg", desc: "Bold collar necklace with diamond accent stones.", available: true },
-        { id: "P011", name: "Helena Locket", price: 2975, img: "images/p011.jpg", desc: "Engravable locket in polished gold.", available: true },
-        { id: "P012", name: "Vega Gold Pendant", price: 2825, img: "images/p012.jpg", desc: "Modern pendant with brushed gold surface.", available: true }
+        { id: "P001", name: "Aurora Diamond Pendant", price: 2750, img: "https://res.cloudinary.com/n4yp34k5/image/upload/295d43ee8ce9543810683fee1019d993", desc: "18K gold pendant with brilliant-cut diamond accent.", available: true },
+        { id: "P002", name: "Solstice Gold Ring", price: 2890, img: "https://res.cloudinary.com/n4yp34k5/image/upload/f847b3a1a1ee618f5c0ecb39c4406f63", desc: "Classic 22K gold ring with polished finish.", available: true },
+        { id: "P003", name: "Evelyn Diamond Studs", price: 3200, img: "https://res.cloudinary.com/n4yp34k5/image/upload/9fb168c3ea887f3fd878355d607a68be", desc: "Pair of diamond studs set in 14K gold.", available: true },
+        { id: "P004", name: "Celeste Gold Bangle", price: 2705, img: "https://res.cloudinary.com/n4yp34k5/image/upload/bdb2977a7cb2ef3e6e5eb7a6638eca38", desc: "Delicate gold bangle with a satin sheen.", available: true },
+        { id: "P005", name: "Orion Diamond Bracelet", price: 3420, img: "https://res.cloudinary.com/n4yp34k5/image/upload/2dccf718292c1bebb9e82180df7cfcc0", desc: "Tennis-style bracelet featuring round diamonds.", available: true },
+        { id: "P006", name: "Riviera Gold Necklace", price: 3050, img: "https://res.cloudinary.com/n4yp34k5/image/upload/771602ad5c618b574f40e172d46d0dd0", desc: "Fine gold chain with textured links.", available: true },
+        { id: "P007", name: "Luna Solitaire Ring", price: 3780, img: "https://res.cloudinary.com/n4yp34k5/image/upload/05ec352998b3eea6741e0b7ae8b20924", desc: "Solitaire diamond in a timeless 18K gold setting.", available: true },
+        { id: "P008", name: "Ivy Diamond Cluster", price: 2899, img: "https://res.cloudinary.com/n4yp34k5/image/upload/c4b78d81e9c39e934dac176cef8d1084", desc: "Cluster diamonds arranged in a floral motif.", available: true },
+        { id: "P009", name: "Mariner Gold Hoop Set", price: 2765, img: "https://res.cloudinary.com/n4yp34k5/image/upload/1d114edaf1089f93d7df7e60f0fbc680", desc: "Set of two gold hoops with secure latch.", available: true },
+        { id: "P010", name: "Seraph Diamond Collar", price: 3350, img: "https://res.cloudinary.com/n4yp34k5/image/upload/f84f214b2f14884265fa8f8ddd675b67", desc: "Bold collar necklace with diamond accent stones.", available: true },
+        { id: "P011", name: "Helena Locket", price: 2975, img: "https://res.cloudinary.com/n4yp34k5/image/upload/d2dfe3b35202696fa73ea64c2386c7c7", desc: "Engravable locket in polished gold.", available: true },
+        { id: "P012", name: "Vega Gold Pendant", price: 2825, img: "https://res.cloudinary.com/n4yp34k5/image/upload/967bd31fa095a8f117952a03635eae24", desc: "Modern pendant with brushed gold surface.", available: true }
       ];
 
       // DOM elements
@@ -35,9 +35,10 @@
       function formatPrice(n){ return `$${n.toLocaleString()}` }
 
       function srcsetFor(basePath){
-        // When using local images we can provide simple size variants if available.
-        // Fall back to the same path for all sizes if no variants present.
-        return `${basePath} 800w, ${basePath} 1600w`;
+        // Cloudinary supports transformations; provide responsive variants
+        const base = basePath.replace('/upload/', '/upload/w_800,q_80/');
+        const base2x = basePath.replace('/upload/', '/upload/w_1600,q_80/');
+        return `${base} 800w, ${base2x} 1600w`;
       }
 
       function renderProducts(){
@@ -49,7 +50,24 @@
 
           const availability = p.available ? '' : '<div class="sold">Sold / Processing</div>';
 
-          card.innerHTML = `\n      <div class="product-image">\n        <picture>\n          <img src="${p.img}" srcset="${srcsetFor(p.img)}" sizes="(max-width:600px) 100vw, 300px" alt="${p.name}" loading="lazy"/>\n        </picture>\n      </div>\n      <div class="product-info">\n        <h3>${p.name}</h3>\n        <p class="price">${formatPrice(p.price)}</p>\n        <p class="desc">${p.desc}</p>\n        <div class="actions">\n          <button class="view" data-action="view" data-id="${p.id}">View</button>\n          <button class="buy" data-action="buy" data-id="${p.id}">Buy</button>\n        </div>\n        ${availability}\n      </div>`;
+          card.innerHTML = `
+      <div class="product-image">
+        <picture>
+          <img src="${p.img}?w=800&q=80" srcset="${srcsetFor(p.img)}" sizes="(max-width:600px) 100vw, 300px" alt="${p.name}" loading="lazy" />
+        </picture>
+      </div>
+      <div class="product-info">
+        <div class="product-title">${p.name}</div>
+        <div class="product-price">${formatPrice(p.price)}</div>
+        <div class="small">${p.desc}</div>
+        <div class="small">Product code: ${p.id}</div>
+        ${availability}
+      </div>
+      <div class="btns" style="margin-top:.75rem">
+        <button class="btn" data-id="${p.id}" data-action="view">View</button>
+        <button class="btn primary buy" data-id="${p.id}" data-action="buy" ${p.available ? '' : 'disabled'}>Buy Now</button>
+      </div>
+    `;
           productsContainer.appendChild(card);
         });
       }
@@ -68,7 +86,17 @@
         const p = PRODUCTS.find(x=>x.id===id);
         if(!p) return;
         modalTitle.textContent = p.name;
-        modalProduct.innerHTML = `\n    <picture>\n      <img src="${p.img}" srcset="${srcsetFor(p.img)}" sizes="(max-width:600px) 100vw, 200px" alt="${p.name}" style="width:220px;height:180px;object-fit:contain;border-radius:8px;"/>\n    </picture>\n    <p class=\"desc\">${p.desc}</p>\n    <p class=\"price\">${formatPrice(p.price)}</p>`;
+        modalProduct.innerHTML = `
+    <picture>
+      <img src="${p.img}?w=200&q=80" srcset="${srcsetFor(p.img)}" sizes="(max-width:600px) 100vw, 200px" alt="${p.name}" style="width:220px;height:180px;object-fit:contain;border-radius:6px" loading="lazy" />
+    </picture>
+    <div>
+      <div style="font-weight:700">${p.name}</div>
+      <div style="color:#b8860b;font-weight:700;margin-top:.25rem">${formatPrice(p.price)}</div>
+      <div class="small" style="margin-top:.5rem">${p.desc}</div>
+      <div class="small">Product code: ${p.id}</div>
+    </div>
+  `;
         openModal();
       }
 
@@ -80,7 +108,17 @@
           return;
         }
         modalTitle.textContent = `Buy: ${p.name}`;
-        modalProduct.innerHTML = `\n    <picture>\n      <img src="${p.img}" srcset="${srcsetFor(p.img)}" sizes="200px" alt="${p.name}" style="width:120px;height:100px;object-fit:contain;border-radius:6px;"/>\n    </picture>\n    <p class=\"price\">${formatPrice(p.price)}</p>`;
+        modalProduct.innerHTML = `
+    <picture>
+      <img src="${p.img}?w=120&q=80" srcset="${srcsetFor(p.img)}" sizes="200px" alt="${p.name}" style="width:120px;height:100px;object-fit:contain;border-radius:6px" loading="lazy" />
+    </picture>
+    <div>
+      <div style="font-weight:700">${p.name}</div>
+      <div style="color:#b8860b;font-weight:700;margin-top:.25rem">${formatPrice(p.price)}</div>
+      <div class="small" style="margin-top:.5rem">${p.desc}</div>
+      <div class="small">Product code: ${p.id}</div>
+    </div>
+  `;
         document.getElementById("product_id").value = p.id;
         document.getElementById("product_name").value = p.name;
         document.getElementById("product_price").value = p.price;
