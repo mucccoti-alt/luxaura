@@ -1,21 +1,21 @@
-// script-local-images.js — using Cloudinary product images (p001-p012)
+// script-local-images.js — using local repository product images (p001-p012)
 (function(){
   async function init(){
     try{
-      // Product data with Cloudinary URLs
+      // Product data with local image paths from repository
       const PRODUCTS = [
-        { id: "P001", name: "Aurora Diamond Pendant", price: 2750, img: "https://res.cloudinary.com/n4yp34k5/image/upload/295d43ee8ce9543810683fee1019d993", desc: "18K gold pendant with brilliant-cut diamond accent.", available: true },
-        { id: "P002", name: "Solstice Gold Ring", price: 2890, img: "https://res.cloudinary.com/n4yp34k5/image/upload/f847b3a1a1ee618f5c0ecb39c4406f63", desc: "Classic 22K gold ring with polished finish.", available: true },
-        { id: "P003", name: "Evelyn Diamond Studs", price: 3200, img: "https://res.cloudinary.com/n4yp34k5/image/upload/9fb168c3ea887f3fd878355d607a68be", desc: "Pair of diamond studs set in 14K gold.", available: true },
-        { id: "P004", name: "Celeste Gold Bangle", price: 2705, img: "https://res.cloudinary.com/n4yp34k5/image/upload/bdb2977a7cb2ef3e6e5eb7a6638eca38", desc: "Delicate gold bangle with a satin sheen.", available: true },
-        { id: "P005", name: "Orion Diamond Bracelet", price: 3420, img: "https://res.cloudinary.com/n4yp34k5/image/upload/2dccf718292c1bebb9e82180df7cfcc0", desc: "Tennis-style bracelet featuring round diamonds.", available: true },
-        { id: "P006", name: "Riviera Gold Necklace", price: 3050, img: "https://res.cloudinary.com/n4yp34k5/image/upload/771602ad5c618b574f40e172d46d0dd0", desc: "Fine gold chain with textured links.", available: true },
-        { id: "P007", name: "Luna Solitaire Ring", price: 3780, img: "https://res.cloudinary.com/n4yp34k5/image/upload/05ec352998b3eea6741e0b7ae8b20924", desc: "Solitaire diamond in a timeless 18K gold setting.", available: true },
-        { id: "P008", name: "Ivy Diamond Cluster", price: 2899, img: "https://res.cloudinary.com/n4yp34k5/image/upload/c4b78d81e9c39e934dac176cef8d1084", desc: "Cluster diamonds arranged in a floral motif.", available: true },
-        { id: "P009", name: "Mariner Gold Hoop Set", price: 2765, img: "https://res.cloudinary.com/n4yp34k5/image/upload/1d114edaf1089f93d7df7e60f0fbc680", desc: "Set of two gold hoops with secure latch.", available: true },
-        { id: "P010", name: "Seraph Diamond Collar", price: 3350, img: "https://res.cloudinary.com/n4yp34k5/image/upload/f84f214b2f14884265fa8f8ddd675b67", desc: "Bold collar necklace with diamond accent stones.", available: true },
-        { id: "P011", name: "Helena Locket", price: 2975, img: "https://res.cloudinary.com/n4yp34k5/image/upload/d2dfe3b35202696fa73ea64c2386c7c7", desc: "Engravable locket in polished gold.", available: true },
-        { id: "P012", name: "Vega Gold Pendant", price: 2825, img: "https://res.cloudinary.com/n4yp34k5/image/upload/967bd31fa095a8f117952a03635eae24", desc: "Modern pendant with brushed gold surface.", available: true }
+        { id: "P001", name: "Aurora Diamond Pendant", price: 2750, img: "p001.jpg", desc: "18K gold pendant with brilliant-cut diamond accent.", available: true },
+        { id: "P002", name: "Solstice Gold Ring", price: 2890, img: "p002.jpg", desc: "Classic 22K gold ring with polished finish.", available: true },
+        { id: "P003", name: "Evelyn Diamond Studs", price: 3200, img: "p003.jpg", desc: "Pair of diamond studs set in 14K gold.", available: true },
+        { id: "P004", name: "Celeste Gold Bangle", price: 2705, img: "p004.jpg", desc: "Delicate gold bangle with a satin sheen.", available: true },
+        { id: "P005", name: "Orion Diamond Bracelet", price: 3420, img: "p005.jpg", desc: "Tennis-style bracelet featuring round diamonds.", available: true },
+        { id: "P006", name: "Riviera Gold Necklace", price: 3050, img: "p006.jpg", desc: "Fine gold chain with textured links.", available: true },
+        { id: "P007", name: "Luna Solitaire Ring", price: 3780, img: "p007.jpg", desc: "Solitaire diamond in a timeless 18K gold setting.", available: true },
+        { id: "P008", name: "Ivy Diamond Cluster", price: 2899, img: "p008.jpg", desc: "Cluster diamonds arranged in a floral motif.", available: true },
+        { id: "P009", name: "Mariner Gold Hoop Set", price: 2765, img: "p009.jpg", desc: "Set of two gold hoops with secure latch.", available: true },
+        { id: "P010", name: "Seraph Diamond Collar", price: 3350, img: "p010.jpg", desc: "Bold collar necklace with diamond accent stones.", available: true },
+        { id: "P011", name: "Helena Locket", price: 2975, img: "p011.jpg", desc: "Engravable locket in polished gold.", available: true },
+        { id: "P012", name: "Vega Gold Pendant", price: 2825, img: "p012.jpg", desc: "Modern pendant with brushed gold surface.", available: true }
       ];
 
       // DOM elements
@@ -35,10 +35,8 @@
       function formatPrice(n){ return `$${n.toLocaleString()}` }
 
       function srcsetFor(basePath){
-        // Cloudinary supports transformations; provide responsive variants
-        const base = basePath.replace('/upload/', '/upload/w_800,q_80/');
-        const base2x = basePath.replace('/upload/', '/upload/w_1600,q_80/');
-        return `${base} 800w, ${base2x} 1600w`;
+        // Local images with simple size variants
+        return `${basePath} 800w, ${basePath} 1600w`;
       }
 
       function renderProducts(){
@@ -53,7 +51,7 @@
           card.innerHTML = `
       <div class="product-image">
         <picture>
-          <img src="${p.img}?w=800&q=80" srcset="${srcsetFor(p.img)}" sizes="(max-width:600px) 100vw, 300px" alt="${p.name}" loading="lazy" />
+          <img src="${p.img}" srcset="${srcsetFor(p.img)}" sizes="(max-width:600px) 100vw, 300px" alt="${p.name}" loading="lazy" />
         </picture>
       </div>
       <div class="product-info">
@@ -88,7 +86,7 @@
         modalTitle.textContent = p.name;
         modalProduct.innerHTML = `
     <picture>
-      <img src="${p.img}?w=200&q=80" srcset="${srcsetFor(p.img)}" sizes="(max-width:600px) 100vw, 200px" alt="${p.name}" style="width:220px;height:180px;object-fit:contain;border-radius:6px" loading="lazy" />
+      <img src="${p.img}" srcset="${srcsetFor(p.img)}" sizes="(max-width:600px) 100vw, 200px" alt="${p.name}" style="width:220px;height:180px;object-fit:contain;border-radius:6px" loading="lazy" />
     </picture>
     <div>
       <div style="font-weight:700">${p.name}</div>
@@ -110,7 +108,7 @@
         modalTitle.textContent = `Buy: ${p.name}`;
         modalProduct.innerHTML = `
     <picture>
-      <img src="${p.img}?w=120&q=80" srcset="${srcsetFor(p.img)}" sizes="200px" alt="${p.name}" style="width:120px;height:100px;object-fit:contain;border-radius:6px" loading="lazy" />
+      <img src="${p.img}" srcset="${srcsetFor(p.img)}" sizes="200px" alt="${p.name}" style="width:120px;height:100px;object-fit:contain;border-radius:6px" loading="lazy" />
     </picture>
     <div>
       <div style="font-weight:700">${p.name}</div>
@@ -139,14 +137,12 @@
 
       yearSpan.textContent = new Date().getFullYear();
 
-      // Form submission with client-side validation and reservation UI
+      // Form submission with client-side validation - NO FREE COUPON
       checkoutForm.addEventListener("submit", async (e)=>{
         e.preventDefault();
         const formData = new FormData(checkoutForm);
         const confirmed = document.getElementById("confirmTransfer");
         const productId = formData.get('product_id');
-        const promo = (formData.get('promo_code') || '').trim();
-        const isFree = promo.toLowerCase() === 'free';
 
         if(!productId){ alert('No product selected'); return; }
         const product = PRODUCTS.find(x=>x.id===productId);
@@ -158,16 +154,13 @@
         const email = formData.get('customer_email');
         const bankRef = formData.get('bank_reference');
         if(!name || !email){ alert('Please fill your name and email.'); return; }
-        if(!isFree){
-          if(!bankRef){ alert('Please fill the bank transfer reference.'); return; }
-          if(!confirmed || !confirmed.checked){ alert('Please confirm you will make the bank transfer.'); return; }
-        }
+        if(!bankRef){ alert('Please fill the bank transfer reference.'); return; }
+        if(!confirmed || !confirmed.checked){ alert('Please confirm you will make the bank transfer.'); return; }
 
         const payload = {};
         formData.forEach((v,k)=>{ payload[k]=v });
-        payload.product_price = isFree ? 0 : Number(payload.product_price);
-        payload.confirmTransfer = isFree ? false : true;
-        if(isFree) payload.is_free = true;
+        payload.product_price = Number(payload.product_price);
+        payload.confirmTransfer = true;
 
         // disable the buy button to prevent double submits while request in-flight
         const buyBtn = productsContainer.querySelector(`button.buy[data-id="${productId}"]`);
@@ -184,13 +177,7 @@
             orderResult.classList.remove('hidden','error');
             orderResult.classList.remove('error');
             orderResult.classList.add('order-result');
-            if(data.bankAccount){
-              orderResult.textContent = `Order submitted — reference: ${data.orderId}. Please complete the bank transfer to the account ${data.bankAccount} and keep the transfer reference.`;
-            } else if(data.free){
-              orderResult.textContent = `Order completed for free — reference: ${data.orderId}.`; 
-            } else {
-              orderResult.textContent = `Order submitted — reference: ${data.orderId}.`;
-            }
+            orderResult.textContent = `Order submitted — reference: ${data.orderId}. Please complete the bank transfer to account 4890010100591001 and keep the transfer reference.`;
             // mark product unavailable locally (the Worker sets a lock server-side)
             product.available = false;
             const card = productsContainer.querySelector(`article[data-product-id="${productId}"]`);
